@@ -3,6 +3,7 @@ import { BoardSessionService } from './board-session.service';
 /* import { StompService } from '../../node_modules/@stomp/ng2-stompjs'; */
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
+import { Board } from './model/board.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,17 +20,6 @@ export class AppComponent {
 
   initializeWebSocketConnection(){
     //this.connect();
-  // Subscribe to notification topic
-  /* this.stompService.subscribe('/weather-updates', boardUpdates => {
-      console.log("Pinging queue...");
-    // Update notifications attribute with the recent messsage sent from the server
-            console.log(JSON.parse(boardUpdates.body));
-        });
-  }
-
-  sendMessage(message){
-    this.stompClient.send("/weatherbee/send/messages" , {}, message);
-  } */
   }
   changeUser(){
     this.session.updateUser(null);
@@ -43,8 +33,8 @@ export class AppComponent {
     this.stompClient.connect({}, function (frame) {
       console.log('Connected: ' + frame);
  
-      _this.stompClient.subscribe('/weather-updates', function (hello) {
-
+      _this.stompClient.subscribe('/weather-updates', function (boardData:Board[]) {
+        this.session.updaboar(boardData.filter(board => board.id == this.session.board.id));
       });
     });
   }
