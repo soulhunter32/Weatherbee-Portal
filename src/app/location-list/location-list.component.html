@@ -1,0 +1,53 @@
+<h1>Locations for board ID {{session.board.id}}</h1>
+<app-create-location></app-create-location>
+  <div class="container">
+      <div class="row">
+        <div class="col" *ngFor="let location of session.board.locations">
+          <div class="weather-card" [ngClass]="{
+            'sun': (!location.forecast[0].weatherDescription.includes('Rain') || !location.forecast[0].weatherDescription.includes('Thunder')
+              || !location.forecast[0].weatherDescription.includes('Shower')),
+            'rain': (location.forecast[0].weatherDescription.includes('Rain') || location.forecast[0].weatherDescription.includes('Thunder')),
+            'cloudy': location.forecast[0].weatherDescription.includes('Cloudy')
+            }">
+            <div class="top">
+              <div class="wrapper">
+                <div class="mynav">
+                  <a href="javascript:;"><span class="lnr lnr-cross-circle" style="float: right;" title="Delete location" (click)="deleteLocation(location.id)"></span></a>
+                </div>
+                <h1 class="heading">{{location.forecast[0].weatherDescription}}</h1>
+                <h3 class="location">{{location.city}}, {{location.country}}</h3>
+                <p class="temp">
+                  <span class="temp-value"><span class="lnr lnr-arrow-down"></span> {{location.forecast[0].minTemperature}}</span>
+                  <span class="deg">0</span>
+                  <span class="temp-value"><span class="lnr lnr-arrow-up"></span> {{location.forecast[0].maxTemperature}}</span>
+                  <span class="deg">0</span>
+                </p>
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="wrapper">
+                <ul class="forecast panel-default" >
+                  <a href="javascript:;">
+                    <div class="lnr lnr-chevron-up go-up" (click)="(isCollapsed = !isCollapsed)" [attr.aria-expanded]="!isCollapsed" aria-controls="forecastList"></div>
+                    <li class="active"><span class="date">Forecast</span></li></a>
+                    <div id="forecastList" [ngbCollapse]="!isCollapsed">
+                      <li *ngFor="let forecast of location.forecast | slice:1">
+                        <span class="date">{{forecast.date | date:'dd MMM'}}</span>
+                        <span class="lnr condition" [ngClass]="{
+                          'lnr-sun': forecast.weatherDescription.includes('Sun'),
+                          'lnr-drop': (forecast.weatherDescription.includes('Rain') || forecast.weatherDescription.includes('Thunder') || forecast.weatherDescription.includes('Shower')),
+                          'lnr-cloud': forecast.weatherDescription.includes('Cloud')
+                        }">
+                        <span class="temp"><span class="lnr lnr-arrow-down"></span>{{forecast.minTemperature}}<span class="deg">0</span></span>
+                        <span class="temp"><span class="lnr lnr-arrow-up"></span>{{forecast.maxTemperature}}<span class="deg">0</span></span>
+                        <span class="lnr lnr-question-circle info" title="{{forecast.weatherDescription}}"></span>
+                      </span>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,18 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h2>
+    Welcome to {{ title }}!
+  </h2>
+  <h3>
+      <span>
+          <span class="lnr lnr-user"></span> [{{session.user?.username}}]
+        <a [routerLink]="'/'" (click)="changeUser()"> Change User </a>
+      </span>
+        
+  </h3>
+<!-- <a [routerLink]="'/location-list'"> Location List </a> -->
+
+<div>
+      <router-outlet></router-outlet>
+</div>
+</div>

@@ -1,0 +1,11 @@
+<div>
+  <p style="margin-bottom: 2rem;"></p>
+  <label class="add"><h2>Add Location
+    <input #locationName/>
+  </h2>
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button class="btn btn-info btn-md" (click)="addLocation(locationName.value); locationName.value=''" style="margin-bottom: 0.8rem;">
+    <span class="lnr lnr-chevron-right" style="font-size: 10px;"></span>
+  </button>
+</div>
